@@ -1,53 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import ExpenseForm from './components/ExpenseForm';
-import ExpenseList from './components/ExpenseList';
-import Chart from './components/Chart';
+// src/App.jsx
+import React, { useState } from 'react';
+import ExpenseForm from './components/ExpenseForm';  // Make sure the path is correct
 import './App.css';
 
 function App() {
   const [expenses, setExpenses] = useState([]);
-  const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    // Load expenses from localStorage on component mount
-    const savedExpenses = JSON.parse(localStorage.getItem('expenses')) || [];
-    setExpenses(savedExpenses);
-    calculateTotal(savedExpenses);
-  }, []);
-
-  useEffect(() => {
-    // Save expenses to localStorage
-    localStorage.setItem('expenses', JSON.stringify(expenses));
-    calculateTotal(expenses);
-  }, [expenses]);
-
-  const calculateTotal = (expenses) => {
-    const totalAmount = expenses.reduce((acc, expense) => acc + expense.amount, 0);
-    setTotal(totalAmount);
-  };
-
-  const addExpense = (expense) => {
-    setExpenses([expense, ...expenses]);
-  };
-
-  const deleteExpense = (id) => {
-    setExpenses(expenses.filter(expense => expense.id !== id));
+  // Function to handle the form submission
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevExpenses) => [...prevExpenses, expense]);
   };
 
   return (
     <div className="App">
-      <header className="text-center p-4 bg-blue-500 text-white">
-        <h1 className="text-3xl font-bold">Expense Tracker</h1>
-        <p className="text-xl">Track your expenses and visualize your spending!</p>
-      </header>
-      <main className="p-6">
-        <ExpenseForm addExpense={addExpense} />
-        <ExpenseList expenses={expenses} deleteExpense={deleteExpense} />
-        <div className="mt-6">
-          <h2 className="text-2xl">Total Expenses: ${total.toFixed(2)}</h2>
-          <Chart expenses={expenses} />
-        </div>
-      </main>
+      <h1>Expense Tracker</h1>
+      
+      {/* Pass the addExpenseHandler to ExpenseForm as a prop */}
+      <ExpenseForm onAddExpense={addExpenseHandler} />
+      
+      <div className="expense-list">
+        <h2>Expenses</h2>
+        {expenses.length === 0 ? (
+          <p>No expenses added yet.</p>
+        ) : (
+          <ul>
+            {expenses.map((expense, index) => (
+              <li key={index}>{expense.name}: ${expense.amount}</li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
