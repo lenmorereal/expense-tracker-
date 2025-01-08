@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState } from 'react';
-import ExpenseForm from './components/ExpenseForm.jsx';
+import ExpenseForm from '@components/ExpenseForm';
 import './App.css';
 
 function App() {
