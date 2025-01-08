@@ -1,0 +1,12 @@
+{
+  "name": "expense-tracker-",
+  "version": "1.0.0",
+  "description": "The Expense Tracker helps users manage their personal finances by tracking expenses and analyzing spending habits.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
