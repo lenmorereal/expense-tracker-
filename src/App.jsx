@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState } from 'react';
-import ExpenseForm from './components/ExpenseForm';  // Make sure the path is correct
+import ExpenseForm from './components/ExpenseForm';  // Correct path
 import './App.css';
 
 function App() {
