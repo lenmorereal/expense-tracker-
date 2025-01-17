@@ -1,37 +1,54 @@
-// src/App.jsx
 import React, { useState } from 'react';
-import ExpenseForm from './components/ExpenseForm';
-import './App.css';
 
-function App() {
+function ExpenseTracker() {
   const [expenses, setExpenses] = useState([]);
+  const [amount, setAmount] = useState('');
+  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
 
-  // Function to handle the form submission
-  const addExpenseHandler = (expense) => {
-    setExpenses((prevExpenses) => [...prevExpenses, expense]);
+  const addExpense = () => {
+    if (amount && category && description) {
+      setExpenses([...expenses, { amount, category, description }]);
+      setAmount('');
+      setCategory('');
+      setDescription('');
+    } else {
+      alert('Please fill in all fields');
+    }
   };
 
   return (
-    <div className="App">
-      <h1>Expense Tracker</h1>
-      
-      {/* Pass the addExpenseHandler to ExpenseForm as a prop */}
-      <ExpenseForm onAddExpense={addExpenseHandler} />
-      
-      <div className="expense-list">
-        <h2>Expenses</h2>
-        {expenses.length === 0 ? (
-          <p>No expenses added yet.</p>
-        ) : (
-          <ul>
-            {expenses.map((expense, index) => (
-              <li key={index}>{expense.name}: ${expense.amount}</li>
-            ))}
-          </ul>
-        )}
-      </div>
+    <div>
+      <input
+        type="text"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        placeholder="Amount"
+      />
+      <input
+        type="text"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        placeholder="Category"
+      />
+      <input
+        type="text"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="Description"
+      />
+      <button onClick={addExpense}>Add Expense</button>
+
+      <ul>
+        {expenses.map((expense, index) => (
+          <li key={index}>
+            {`Amount: $${expense.amount}, Category: ${expense.category}, Description: ${expense.description}`}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export default App;
+export default ExpenseTracker;
+
