@@ -1,4 +1,5 @@
 console.log('Script loaded');  // At the top of app.js
+console.log("JavaScript is loaded");  // This will confirm if the script is running
 
 document.getElementById('add-expense-btn').addEventListener('click', function() {
   console.log('Add Expense button clicked');  // When the button is clicked
