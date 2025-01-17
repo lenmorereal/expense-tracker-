@@ -7,7 +7,7 @@ function ExpenseTracker() {
   const [description, setDescription] = useState('');
 
   const addExpense = () => {
-    if (amount && category && description) {
+     console.log('Button clicked!'); // Add this for debugging
       setExpenses([...expenses, { amount, category, description }]);
       setAmount('');
       setCategory('');
