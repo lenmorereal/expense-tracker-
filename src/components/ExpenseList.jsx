@@ -1,18 +1,22 @@
-if (amount && category && description) {
-  const expenseList = document.getElementById('expenses-list');
-  
-  if (expenseList.children.length === 1 && expenseList.children[0].textContent === "No expenses added yet.") {
-    expenseList.innerHTML = '';
-  }
+import React from 'react';
 
-  const expenseItem = document.createElement('li');
-  expenseItem.textContent = `Amount: $${amount}, Category: ${category}, Description: ${description}`;
-  expenseList.appendChild(expenseItem);
-
-  // Clear input fields
-  document.getElementById('amount').value = '';
-  document.getElementById('category').value = '';
-  document.getElementById('description').value = '';
-} else {
-  alert('Please fill in all fields');
+function ExpenseList({ expenses }) {
+  return (
+    <div className="expense-list">
+      <h3>Expenses</h3>
+      {expenses.length === 0 ? (
+        <p>No expenses added yet.</p>
+      ) : (
+        <ul>
+          {expenses.map((expense, index) => (
+            <li key={index}>
+              <strong>Amount:</strong> ${expense.amount} | <strong>Category:</strong> {expense.category} | <strong>Description:</strong> {expense.description}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }
+
+export default ExpenseList;
