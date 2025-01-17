@@ -1,61 +1,22 @@
-import React, { useState } from 'react';
+// This is where the button click event is attached
+document.getElementById('add-expense-btn').addEventListener('click', addExpense);
 
-function ExpenseForm({ addExpense }) {
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
+function addExpense() {
+  const amount = document.getElementById('amount').value;
+  const category = document.getElementById('category').value;
+  const description = document.getElementById('description').value;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (amount && category && description) {
-      const newExpense = {
-        id: Date.now(),
-        amount: parseFloat(amount),
-        category,
-        description,
-      };
-      addExpense(newExpense);
-      setAmount('');
-      setCategory('');
-      setDescription('');
-    } else {
-      alert('Please fill in all fields');
-    }
-  };
+  if (amount && category && description) {
+    const expenseList = document.getElementById('expenses-list');
+    const expenseItem = document.createElement('li');
+    expenseItem.textContent = `Amount: $${amount}, Category: ${category}, Description: ${description}`;
+    expenseList.appendChild(expenseItem);
 
-  return (
-    <form onSubmit={handleSubmit} className="mb-6">
-      <div className="flex space-x-4">
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="Amount"
-          className="p-2 border border-gray-300 rounded w-full"
-        />
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          placeholder="Category"
-          className="p-2 border border-gray-300 rounded w-full"
-        />
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description"
-          className="p-2 border border-gray-300 rounded w-full"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded"
-        >
-          Add Expense
-        </button>
-      </div>
-    </form>
-  );
+    // Clear the input fields after adding the expense
+    document.getElementById('amount').value = '';
+    document.getElementById('category').value = '';
+    document.getElementById('description').value = '';
+  } else {
+    alert('Please fill in all fields');
+  }
 }
-
-export default ExpenseForm;
