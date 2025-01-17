@@ -1,4 +1,9 @@
-document.getElementById('add-expense-btn').addEventListener('click', addExpense);
+console.log('Script loaded');  // At the top of app.js
+
+document.getElementById('add-expense-btn').addEventListener('click', function() {
+  console.log('Add Expense button clicked');  // When the button is clicked
+});
+
 
 function addExpense() {
   console.log('Add Expense button clicked');  // Debugging statement
