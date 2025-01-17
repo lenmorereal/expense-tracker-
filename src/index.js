@@ -1,53 +1,21 @@
-import React, { useState } from 'react';
+document.getElementById('add-expense-btn').addEventListener('click', addExpense);
 
-function ExpenseTracker() {
-  const [expenses, setExpenses] = useState([]);
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
+function addExpense() {
+  const amount = document.getElementById('amount').value;
+  const category = document.getElementById('category').value;
+  const description = document.getElementById('description').value;
 
-  const addExpense = () => {
-    if (amount && category && description) {
-      setExpenses([...expenses, { amount, category, description }]);
-      setAmount('');
-      setCategory('');
-      setDescription('');
-    } else {
-      alert('Please fill in all fields');
-    }
-  };
+  if (amount && category && description) {
+    const expenseList = document.getElementById('expenses-list');
+    const expenseItem = document.createElement('li');
+    expenseItem.textContent = `Amount: $${amount}, Category: ${category}, Description: ${description}`;
+    expenseList.appendChild(expenseItem);
 
-  return (
-    <div>
-      <input
-        type="text"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="Amount"
-      />
-      <input
-        type="text"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        placeholder="Category"
-      />
-      <input
-        type="text"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
-      />
-      <button onClick={addExpense}>Add Expense</button>
-
-      <ul>
-        {expenses.map((expense, index) => (
-          <li key={index}>
-            {`Amount: $${expense.amount}, Category: ${expense.category}, Description: ${expense.description}`}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    // Clear input fields after adding expense
+    document.getElementById('amount').value = '';
+    document.getElementById('category').value = '';
+    document.getElementById('description').value = '';
+  } else {
+    alert('Please fill in all fields');
+  }
 }
-
-export default ExpenseTracker;
