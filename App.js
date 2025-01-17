@@ -31,4 +31,5 @@ function addExpense() {
   } else {
     alert('Please fill in all fields');
   }
+  <script src="app.js"></script>
 }
