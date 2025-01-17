@@ -1,22 +1,53 @@
-// This is where the button click event is attached
-document.getElementById('add-expense-btn').addEventListener('click', addExpense);
+import React, { useState } from 'react';
 
-function addExpense() {
-  const amount = document.getElementById('amount').value;
-  const category = document.getElementById('category').value;
-  const description = document.getElementById('description').value;
+function ExpenseForm({ addExpense }) {
+  const [amount, setAmount] = useState('');
+  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
 
-  if (amount && category && description) {
-    const expenseList = document.getElementById('expenses-list');
-    const expenseItem = document.createElement('li');
-    expenseItem.textContent = `Amount: $${amount}, Category: ${category}, Description: ${description}`;
-    expenseList.appendChild(expenseItem);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!amount || !category || !description) {
+      alert('Please fill in all fields');
+      return;
+    }
 
-    // Clear the input fields after adding the expense
-    document.getElementById('amount').value = '';
-    document.getElementById('category').value = '';
-    document.getElementById('description').value = '';
-  } else {
-    alert('Please fill in all fields');
-  }
+    const newExpense = { amount, category, description };
+    addExpense(newExpense);
+    
+    // Clear the form
+    setAmount('');
+    setCategory('');
+    setDescription('');
+  };
+
+  return (
+    <div className="expense-form">
+      <h2>Expense Tracker</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="number"
+          placeholder="Amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <button type="submit">Add Expense</button>
+      </form>
+    </div>
+  );
 }
+
+export default ExpenseForm;
