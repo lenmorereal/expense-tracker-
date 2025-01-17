@@ -6,16 +6,15 @@ function ExpenseTracker() {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
 
-  const addExpense = () => {
-     console.log('Button clicked!'); // Add this for debugging
-      setExpenses([...expenses, { amount, category, description }]);
-      setAmount('');
-      setCategory('');
-      setDescription('');
-    } else {
-      alert('Please fill in all fields');
-    }
-  };
+function addExpense() {
+  console.log('Button clicked!'); // Add this for debugging
+  const amount = document.getElementById('amount').value;
+  const category = document.getElementById('category').value;
+  const description = document.getElementById('description').value;
+
+  // Existing logic...
+}
+
 
   return (
     <div>
